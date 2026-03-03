@@ -9,7 +9,6 @@ public class Paciente {
 	String  sexo;
 	String  apellidoPat;
 	String  apellidoMat;
-	
 	String nombre;
     String fecha;
     String correo;
@@ -18,44 +17,29 @@ public class Paciente {
     String consulta;
      int usuarioId; 
     
-	public Paciente(int id, String parentesco, String dni, String sexo, String apellidoPat, String apellidoMat,
-			String nombre, String fecha, String correo, String telefono, String direccion, String consulta,
-			int usuarioId) {
-		super();
-		this.id = id;
-		this.parentesco = parentesco;
-		this.dni = dni;
-		this.sexo = sexo;
-		this.apellidoPat = apellidoPat;
-		this.apellidoMat = apellidoMat;
-		this.nombre = nombre;
-		this.fecha = fecha;
-		this.correo = correo;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.consulta = consulta;
-		this.usuarioId = usuarioId;
-	}
-	
-	
-
-	public Paciente(String parentesco, String dni, String sexo, String apellidoPat, String apellidoMat, String nombre,
-			String fecha, String correo, String telefono, String direccion, String consulta) {
-		super();
-		this.parentesco = parentesco;
-		this.dni = dni;
-		this.sexo = sexo;
-		this.apellidoPat = apellidoPat;
-		this.apellidoMat = apellidoMat;
-		this.nombre = nombre;
-		this.fecha = fecha;
-		this.correo = correo;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.consulta = consulta;
-	}
-
-
+     public Paciente() {
+ 		super();
+ 	}
+ 	
+ 	public Paciente(int id, String parentesco, String dni, String sexo, String apellidoPat, String apellidoMat,
+ 			String nombre, String fecha, String correo, String telefono, String direccion, String consulta,
+ 			int usuarioId) {
+ 		super();
+ 		this.id = id;
+ 		this.parentesco = parentesco;
+ 		this.dni = dni;
+ 		this.sexo = sexo;
+ 		this.apellidoPat = apellidoPat;
+ 		this.apellidoMat = apellidoMat;
+ 		this.nombre = nombre;
+ 		this.fecha = fecha;
+ 		this.correo = correo;
+ 		this.telefono = telefono;
+ 		this.direccion = direccion;
+ 		this.consulta = consulta;
+ 		this.usuarioId = usuarioId;
+ 	}
+ 	
 
 	public String getParentesco() {
 		return parentesco;
@@ -105,31 +89,11 @@ public class Paciente {
 		 this.usuarioId = usuarioId;
 	 }
 
-	public Paciente(int id, String nombre, String fecha, String sexo, String telefono, String direccion, String consulta) {
-		super();
-		this.nombre = nombre;
-		this.fecha = fecha;
-		this.sexo = sexo;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.consulta = consulta;
-	}
-    
-	public Paciente(String nombre, String fecha, String sexo, String telefono, String direccion, String consulta, int ususuarioId) {
-		super();
-		this.nombre = nombre;
-		this.fecha = fecha;
-		this.sexo = sexo;
-		this.telefono = telefono;
-		this.direccion = direccion;
-		this.consulta = consulta;
-		this.usuarioId= ususuarioId;
-	}
-	public Paciente() {
-		super();
-	}
+
 	
 	
+
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -180,6 +144,14 @@ public class Paciente {
 	public void setusuarioId(int usuarioId) {
 		this.usuarioId = usuarioId;
 	}
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

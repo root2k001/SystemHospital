@@ -137,6 +137,28 @@ public void agregarPaciente(Paciente paciente) {
 	           
 	    }
 	 
+public boolean editarPaciente(Paciente paciente) throws SQLException {
+		 
+		 
+		 PreparedStatement ps;
+	    	String query = "UPDATE Pacientes SET parentesco = ?, correo = ?, fecha = ?, telefono = ?, direccion = ? WHERE dni = ?";
+
+		    try(Connection connection = SqlServerConexion.conectar()) {
+		    	
+		    	ps = connection.prepareStatement(query);
+		    	ps.setString(1, paciente.getParentesco());
+		    	ps.setString(2, paciente.getCorreo());
+		    	ps.setString(3, paciente.getFecha());
+		    	ps.setString(4, paciente.getTelefono());
+		    	ps.setString(5, paciente.getDireccion());
+		    	ps.setString(6, paciente.getDni());
+		    	
+		    	int filasAfectadas = ps.executeUpdate();
+		    	return filasAfectadas > 0;
+		    	
+		    }
+	 }
+	 
 	 public boolean existePaciente(String dni) {
 		    String sql = "SELECT COUNT(*) FROM Pacientes WHERE DNI=?";
 		    

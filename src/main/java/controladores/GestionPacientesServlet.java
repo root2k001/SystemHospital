@@ -100,7 +100,7 @@ public class GestionPacientesServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-JsonObject jsonObject = null;
+	JsonObject jsonObject = null;
 
         
         try {
@@ -146,13 +146,37 @@ JsonObject jsonObject = null;
 
 	    PrintWriter out = response.getWriter();
 	    JsonObject json = new JsonObject();
-
+	    PacienteDao  editPac = new PacienteDao();
+	    
 		String DNIPaciente= null;
+		String correo = null;
+		String fehcaNac = null;
+		String telefono = null;
+		String direccion = null;
 		
 		try {
-			DNIPaciente = jsonObject.get("DNI").getAsString();
+DNIPaciente = jsonObject.get("DNI").getAsString();
+			String parentesco = jsonObject.get("parentesco").getAsString();
+			correo= jsonObject.get("correo").getAsString();
+			fehcaNac = jsonObject.get("fechaNac").getAsString();
+			telefono =jsonObject.get("telefono").getAsString();
+			direccion =jsonObject.get("direccion").getAsString();
+
+			 Paciente paciente = new Paciente();
+			 paciente.setDni(DNIPaciente);
+			 paciente.setParentesco(parentesco);
+			 paciente.setCorreo(correo);
+			 paciente.setFecha(fehcaNac);
+			 paciente.setTelefono(telefono);
+			 paciente.setDireccion(direccion);
+			 
+			 
+			 
+			 editPac.editarPaciente(paciente);
+	            
 			
-		
+			
+			
 		}catch(Exception e) {
 			
 			System.out.println(e);
@@ -251,6 +275,8 @@ JsonObject jsonObject = null;
 				        } else {
 				            // PRIMER Y ÚNICO REGISTRO
 				            Paciente paciente = new Paciente(idUsuario, parentesco, dni, sexo, apellidoPat, apellidoMat, nombre, fecha, correo, telefono, direccion, consulta, idUsuario);
+				            
+				            
 				            pacienteReg.agregarPaciente(paciente);
 				            jsonResponse.addProperty("estado", true);
 				            jsonResponse.addProperty("mensaje", "Paciente registrado con éxito.");

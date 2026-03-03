@@ -87,7 +87,7 @@
     <button id="miBoton" class="miBoton">Registrar paciente</button>
 
     <div id="contenedorGeneral">
-        <button id="cerrar-formulario" type="button" class="btnCerrar"><span>×</span></button>
+        <button type="button" id="cerrar-formulario" class="btn-cerrar"><span>×</span></button>
         <div id="titulo"><strong>Nuevo Paciente</strong></div>
 
         <div class="contenedorFormulario">
@@ -165,7 +165,7 @@
     </div>
 
     <div id="contenedorActualizarData">
-        <button id="cerrar-formulario" type="button" class="btnCerrar"><span>×</span></button>
+        <button type="button"  id="cerrar-formulario" class="btn-cerrar"><span>×</span></button>
         <h1 class="text-left" id="actperfil">Actualiza tu perfil clínico</h1>
 	
 	
@@ -221,16 +221,18 @@
     
     
     <div  id="contenedor-formulario-edit-Pac"  style="display: none">
+		<button type="button" id="cerrar-formulario-edit-pac" class="btn-cerrar"><span>×</span></button>
+		        <div id="titulo"><strong>Editar Datos Paciente </strong></div>
     
 
 	  <form id="formActualizarPac" method="post">
-		    <input type="hidden" name="accion" value="actualizarPerfil">
-
+		    <input type="hidden" name="accion" value="actualizarPaciente">
 		   
+		
 		    <div class="labelcontainer">
 
 			<label>Parentesco</label>
-			<select id="cboParentesco" name="parentesco">
+			<select id="cboParentescoPac" name="parentesco">
 			                        <option>Padre</option>
 			                        <option>Madre</option>
 			                        <option>Conyugue</option>
@@ -241,27 +243,26 @@
 				</div>
 		   <div class="labelcontainer">
 			<label>Correo Electronico</label>
-			<input id="txtCorreo" type="text" name="correo">
+			<input id="txtCorreoPac" type="text" name="correo">
 			</div>
 		   <div class="labelcontainer">
 			<label>Fecha de Nacimiento</label>
-			<input id="txtfecha" type="date" name="fecha_nacimiento">
+			<input id="txtfechaPac" type="date" name="fecha_nacimiento">
 			</div>
 			
 			<div class="labelcontainer">
 			<label>Teléfono</label>
-			<input id="txtTelefono" type="text" name="telefono">
+			<input id="txtTelefonoPac" type="text" name="telefono">
 			   </div>
 			   <div class="labelcontainer">
 			                       <label>Dirección</label>
-			                       <input id="txtDireccion" type="text" name="direccion">
+			                       <input id="txtDireccionPac" type="text" name="direccion">
 			                   </div>
 			   
-			   <button type="submit" id="actualizarDatosUsuario" class="miBoton">Guardar</button>
+			   <button type="submit" id="actualizarDatosPaciente" class="miBoton">Guardar</button>
 			</form>
 		
 		</div>									  
 
-<button id="btn_eliminar">kfnsafkas</button>
 </body>
 </html>

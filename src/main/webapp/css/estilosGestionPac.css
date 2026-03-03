@@ -123,7 +123,7 @@ body {
 #mi_tabla_citas thead {
     background-color: #007bff;
     color: #484646;
-;
+
 }
 
 #mi_tabla_citas th,
@@ -159,7 +159,7 @@ body {
     transform: translateY(-2px);
 }
 
-#cerrar-formulario {
+.btn-cerrar {
     width: 40px;
     height: 40px;
     background-color: #e74c3c;
@@ -175,26 +175,19 @@ body {
     transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-#cerrar-formulario:hover {
+.btn-cerrar:hover {
     background-color: #c0392b;
     transform: rotate(90deg);
 }
 
 /* ===========================
-   FORMULARIOS
-=========================== */
+   FORMULARIOS - MODALES
+ =========================== */
 
-
-
-#contenedorGeneral
-{
-
-    display: none;
-    position: fixed; /* ✅ lo fija en el centro de la pantalla */
-	top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* ✅ lo centra perfectamente */
-    
+#contenedorGeneral,
+#contenedor-formulario-edit-Pac,
+#contenedorActualizarData {
+    position: fixed;
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px;
@@ -203,44 +196,27 @@ body {
     width: 90%;
     opacity: 0;
     transition: opacity 0.4s ease, transform 0.4s ease;
-    z-index: 1000; /*  asegura que esté por encima del resto */
-
-
+    z-index: 1000;
 }
+
+#contenedorGeneral {
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+}
+
 #contenedor-formulario-edit-Pac {
-    position: fixed; 
-	display:none;	
-    transform: translate(40%, 25%);
-	background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    width: 90%;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    z-index: 1000; 
-    pointer-events: none;
+    display: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-
 
 #contenedorActualizarData {
-
     display: none;
-    position: fixed; 
-	
-    transform: translate(40%, 25%);
-    
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    width: 90%;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    z-index: 1000; 
-
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #titulo {
@@ -253,12 +229,9 @@ body {
 }
 
 #formulario {
-    display: flex
-;
+    display: flex;
     gap: 10%;
     flex-wrap: wrap;
-    
-    
 }
 
 .labelcontainer {

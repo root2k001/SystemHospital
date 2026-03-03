@@ -1,38 +1,55 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+	// ===========================
+	// FUNCIONES REUTILIZABLES
+	// ===========================
 	
-	
+	function cerrarModal(modal) {
+		modal.style.transition = 'opacity 0.4s ease';
+		modal.style.opacity = 0;
+		setTimeout(() => {
+			modal.style.display = 'none';
+		}, 400);
+	}
+
+	function abrirModal(modal) {
+		modal.style.display = 'block';
+		modal.style.position = 'fixed';
+		modal.style.top = '50%';
+		modal.style.left = '50%';
+		modal.style.transform = 'translate(-50%, -50%)';
+		modal.style.opacity = '0';
+
+		setTimeout(() => {
+			modal.style.transition = 'opacity 0.4s ease';
+			modal.style.opacity = 1;
+		}, 10);
+	}
+
+	// ===========================
+	// VARIABLES
+	// ===========================
+
 	const contenedorActualizarData = document.getElementById('contenedorActualizarData');
 	const btnEditarPerfil = document.getElementById('btn_editar_usuario');
-//variables para el usuario 
-const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario");
 	const formActualizarDataUsuario = document.getElementById("formActualizarPerfil");
-  const btnFormRegistrar = document.getElementById('miBoton');
- 
-  // VARIABLES FORMULARIO DE REGISTRO  DE PACIENTES 
-   const ContenedorformularioReg = document.getElementById('contenedorGeneral');
-  const btnProcesarRegistro=  document.getElementById('btnProcesarGestion');
-  const btnCerrarFormReg = document.getElementById('cerrar-formulario');
-  const tbodyPacientes = document.querySelector('#mi_tabla_citas tbody'); 
-//  const tbodyPacientes = document.querySelector('#mi_tabla_citas tbody');
-  const formularioReg = document.getElementById('contenedorGeneral');
-  
-  const mensajeExito =  document.getElementById('mensajeExito');
-//variable para cerrar sesion 
+	const btnFormRegistrar = document.getElementById('miBoton');
 
-  
-  const btnCerrarSession = document.getElementById('btn-cerrar-sesion');  
-  
+	const ContenedorformularioReg = document.getElementById('contenedorGeneral');
+	const btnCerrarFormReg = ContenedorformularioReg.querySelector('.btn-cerrar');
+	const tbodyPacientes = document.querySelector('#mi_tabla_citas tbody');
+	const formularioReg = document.getElementById('contenedorGeneral');
+	const mensajeExito = document.getElementById('mensajeExito');
+	const btnCerrarSession = document.getElementById('btn-cerrar-sesion');  
 
+	const formularioEditarPac = document.getElementById('contenedor-formulario-edit-Pac');
+	const botonEditarPac = document.getElementById("actualizarDatosPaciente");
+	const formActualizarPac = document.getElementById('formActualizarPac');
+	const btnCerrarEditPac = formularioEditarPac.querySelector('.btn-cerrar');
 
-   // se decklara un arreglo de ambito superior para modificar los pacientes
-   //const accion = 'obtenerDatos';
-  
-  	let listaPacientesData= []
-	
-	const accion='obtenerDatos'
-  
-  function cargarPacientes() {
+	const accion = 'obtenerDatos'
+
+	function cargarPacientes() {
 
      fetch(`./GestionPacientesServlet?accion=${accion}`)
        .then(response => {
@@ -67,22 +84,18 @@ const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario"
 		 
 
 
-		 		 	
-	 })
- }
-			 ;
-			 		
-			 // ===================================
-			 // REFERENCIA BOTÓN GUARDAR
-			 // ===================================
-			 const botonEditarPac = document.getElementById("actualizarDatosUsuario");
+ 		 		 	
+ 	 })
+  }
+ 			 		
+//const formularioEditarPac = document.getElementById('contenedor-formulario-edit-Pac');
+//const botonEditarPac = document.getElementById("actualizarDatosPaciente");
+//const formActualizarPac = document.getElementById('formActualizarPac');
 
-			 cargarPacientes();
+cargarPacientes();
 
-			 // ===================================
-			 // EVENTO GLOBAL (EDITAR / ELIMINAR)
-			 // ===================================
-			 document.addEventListener("click", function (event) {
+
+document.addEventListener("click", function (event) {
 
 			     const btn = event.target;
 
@@ -91,9 +104,7 @@ const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario"
 			     const DNIPaciente = btn.dataset.dni;
 			     const esEliminar = btn.classList.contains("btn-eliminar");
 
-			     // ===============================
-			     // 🔴 ELIMINAR
-			     // ===============================
+			 
 			     if (esEliminar) {
 
 			         const parametros = {
@@ -105,43 +116,35 @@ const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario"
 			         return;
 			     }
 
-			     // ===============================
-			     // 🟢 EDITAR (abrir modal)
-			     // ===============================
-			     const formularioEditarPac = document.getElementById('contenedor-formulario-edit-Pac');
-			     formularioEditarPac.style.display = "block";
-			     formularioEditarPac.style.opacity = "1";
+			    
+			     abrirModal(formularioEditarPac);
 
 			     // Guardamos el DNI en el botón guardar
 			     botonEditarPac.dataset.dni = DNIPaciente;
 			 });
 
 
-			 // ===================================
-			 // BOTÓN GUARDAR (EDITAR)
-			 // ===================================
-			 botonEditarPac.addEventListener('click', function () {
+			 
+formActualizarPac.addEventListener('submit', function (event) {
+			    event.preventDefault();
 
 			     const parametros = {
 			         DNI: botonEditarPac.dataset.dni,
-			         parentesco: document.getElementById('cboParentesco').value.trim(),
-			         correo: document.getElementById('txtCorreo').value.trim(),
-			         fechaNac: document.getElementById('txtfecha').value,
-			         telefono: document.getElementById('txtTelefono').value.trim(),
-			         direccion: document.getElementById('txtDireccion').value.trim(),
+			         parentesco: document.getElementById('cboParentescoPac').value.trim(),
+			         correo: document.getElementById('txtCorreoPac').value.trim(),
+			         fechaNac: document.getElementById('txtfechaPac').value,
+			         telefono: document.getElementById('txtTelefonoPac').value.trim(),
+			         direccion: document.getElementById('txtDireccionPac').value.trim(),
 			         accion: "editar"
 			     };
 
-			     console.log(parametros);
-
-			     enviarAlServlet(parametros);
+			     enviarAlServlet(parametros, function() {
+			         cerrarModal(formularioEditarPac);
+			         cargarPacientes();
+			     });
 			 });
 			  
-		function enviarAlServlet(parametros){
-			
-			
-			
-
+	function enviarAlServlet(parametros, onSuccess){
 					fetch('./GestionPacientesServlet',{
 						method:'POST',
 						headers:
@@ -154,7 +157,7 @@ const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario"
 					.then(data=>{
 						if(data.estado){
 							alert(data.mensaje);
-							cargarPacientes();
+							if (onSuccess) onSuccess();
 						}else{
 							alert("Error : " + data.mensaje)
 						}
@@ -171,77 +174,42 @@ const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario"
 			  
 			  
 			  
-  
-  btnFormRegistrar.addEventListener('click', function () {
-    if (window.getComputedStyle(ContenedorformularioReg).display === 'none') {
+// ===========================
+	// EVENT LISTENERS - MODALES
+	// ===========================
 
-	  
-	  ContenedorformularioReg.style.display = 'block';
-	     ContenedorformularioReg.style.position = 'fixed';
-	     ContenedorformularioReg.style.top = '50%';
-	     ContenedorformularioReg.style.left = '50%';
-	     ContenedorformularioReg.style.transform = 'translate(-50%, -50%)';
-	     ContenedorformularioReg.style.opacity = '0';
+	// Botón abrir formulario registro
+	btnFormRegistrar.addEventListener('click', function () {
+		if (window.getComputedStyle(ContenedorformularioReg).display === 'none') {
+			abrirModal(ContenedorformularioReg);
+		} else {
+			cerrarModal(ContenedorformularioReg);
+		}
+	});
 
-      setTimeout(() => {
-        ContenedorformularioReg.style.opacity = 1;
-      }, 10);
+	// Botones cerrar modales
+	btnCerrarFormReg.addEventListener('click', () => cerrarModal(ContenedorformularioReg));
+	btnCerrarEditPac.addEventListener('click', () => cerrarModal(formularioEditarPac));
 
-    } else {
-      ContenedorformularioReg.style.transition = 'opacity 0.4s ease';
-      ContenedorformularioReg.style.opacity = 0;
+	// Abrir modal editar perfil usuario
+	btnEditarPerfil.addEventListener('click', function () {
+		if (window.getComputedStyle(contenedorActualizarData).display === 'none') {
+			abrirModal(contenedorActualizarData);
+		} else {
+			cerrarModal(contenedorActualizarData);
+		}
+	});
 
-      setTimeout(() => {
-        ContenedorformularioReg.style.display = 'none';
-      }, 400);
-    }
-  });
-
-  btnCerrarFormReg.addEventListener('click', function () {
-    ContenedorformularioReg.style.transition = 'opacity 0.4s ease';
-    ContenedorformularioReg.style.opacity = 0;
-    setTimeout(() => {
-      ContenedorformularioReg.style.display = 'none';
-    }, 400);
-  });
-
-  btnEditarPerfil.addEventListener('click', function () {
-    if (window.getComputedStyle(contenedorActualizarData).display === 'none') {
-      contenedorActualizarData.style.display = 'block';
-      contenedorActualizarData.style.position = 'fixed';
-      contenedorActualizarData.style.top = '50%';
-      contenedorActualizarData.style.left = '50%';
-      contenedorActualizarData.style.transform = 'translate(-50%, -50%)';
-      contenedorActualizarData.style.opacity = '0';
-
-      setTimeout(() => {
-        contenedorActualizarData.style.transition = 'opacity 0.4s ease';
-        contenedorActualizarData.style.opacity = '1';
-      }, 10);
-
-    } else {
-      contenedorActualizarData.style.transition = 'opacity 0.4s ease';
-      contenedorActualizarData.style.opacity = '0';
-      setTimeout(() => {
-        contenedorActualizarData.style.display = 'none';
-      }, 400);
-    }
-  });
-
-  const btnCerrarActualizar = contenedorActualizarData.querySelector('#cerrar-formulario');
-
-  btnCerrarActualizar.addEventListener('click', function () {
-    contenedorActualizarData.style.transition = 'opacity 0.4s ease';
-    contenedorActualizarData.style.opacity = 0;
-    setTimeout(() => {
-      contenedorActualizarData.style.display = 'none';
-    }, 400);
-  });
+	// Cerrar modal perfil usuario
+	const btnCerrarActualizar = contenedorActualizarData.querySelector('.btn-cerrar');
+	btnCerrarActualizar.addEventListener('click', () => cerrarModal(contenedorActualizarData));
   
   
 
-  // REGISTRAR PACIENTE 
-  btnProcesarRegistro.addEventListener('click', function (event) {
+// REGISTRAR PACIENTE 
+  const formulario = document.getElementById('formulario');
+  
+  formulario.addEventListener('submit', function (event) {
     event.preventDefault();
 
     const parentesco = document.getElementById('cboParentesco').value.trim();
@@ -347,11 +315,11 @@ const actualizarDatosUsuario =  document.getElementById("actualizarDatosUsuario"
 		        if (!response.ok) throw new Error("Error en el servidor");
 		        return response.json();
 		    })
-		    .then(data => {
+.then(data => {
 		        if (data.status) {
-		            // Mostrar mensaje de éxito (tu lógica de setTimeout)
 		            mensajeExito.style.display = 'block';
 		            setTimeout(() => { mensajeExito.style.display = 'none'; }, 3000);
+		            cerrarModal(contenedorActualizarData);
 		        } else {
 		            alert("Error: " + data.mensaje);
 		        }
