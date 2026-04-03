@@ -20,12 +20,17 @@ public class SqlServerConexion {
 	
 		
 	public static Connection conectar() {
-		Connection con = null;
-		String urlConexion ="jdbc:sqlserver://localhost:1433;databaseName=proyecto;encrypt=true;trustServerCertificate=true";
-		try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+	    Connection con = null;
 
-			con=DriverManager.getConnection(urlConexion,"sa","Innova2019.");
+	    String urlConexion ="jdbc:sqlserver://localhost:1433;"
+	            + "databaseName=proyecto;"
+	            + "encrypt=true;"
+	            + "trustServerCertificate=true;";
+
+	    try {
+	        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+	        con = DriverManager.getConnection(urlConexion, "sa", "123456");
 			
 			
 			
