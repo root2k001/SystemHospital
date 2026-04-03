@@ -15,7 +15,7 @@
 </head>
 <body>
 
-		
+		<p>HOLA PUTA </p>
 
 
 	<div  id ="registro-contenedor">
