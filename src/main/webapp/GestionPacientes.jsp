@@ -188,11 +188,11 @@
   
     <div class="labelcontainer">
         <label>Peso</label>
-        <input type="text" name="peso" id="peso-txt">
+        <input type="text" name="peso" id="peso-txt" value="<%= (usuario.getPeso() != null) ? usuario.getPeso() : "" %>">
     </div>
     <div class="labelcontainer">
         <label>Altura</label>
-        <input type="text" name="altura" id="altura-txt" >
+        <input type="text" name="altura" id="altura-txt" value="<%= (usuario.getAltura() != null) ? usuario.getAltura() : "" %>">
     </div>
     <div class="labelcontainer">
         <label>Tipo de Sangre</label>
@@ -213,9 +213,6 @@
 											  
 
 
-<div id="mensajeExito" style="display:none; color:green; margin-top:10px;">
-    Perfil actualizado correctamente.
-</div>
 
 
     </div>

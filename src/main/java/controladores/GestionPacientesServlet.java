@@ -107,31 +107,32 @@ public class GestionPacientesServlet extends HttpServlet {
         	  jsonObject = JsonParser.parseReader(request.getReader()).getAsJsonObject();
               String accion = jsonObject.get("accion").getAsString();
         	switch(accion) {
-        	
-        	
         	case "registrar":
                 regPaciente(jsonObject,request, response);
-                	break ;
-                	
-        	case "eliminar":
-
-                EliminarPac(jsonObject, request, response);     
-
                 break;
-                
+        	case "eliminar":
+                EliminarPac(jsonObject, request, response);     
+                break;
         	case "editar" :
-        		
                 EditarPac(jsonObject, request, response);     
-
         		break;
-        	
+        	default:
+        	    JsonObject err = new JsonObject();
+			    err.addProperty("estado", false);
+			    err.addProperty("mensaje", "Acción no reconocida");
+			    response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().write(err.toString());
+			    break;
         	}
-        	
-        	
-        }catch(Exception e) {
-        	
+        } catch(Exception e) {
             e.printStackTrace();
-
+            JsonObject err = new JsonObject();
+		    err.addProperty("estado", false);
+		    err.addProperty("mensaje", "Error interno al procesar los datos de pacientes.");
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(err.toString());
         }
 		
 		
@@ -143,47 +144,35 @@ public class GestionPacientesServlet extends HttpServlet {
 	
 
 	private void EditarPac(JsonObject jsonObject, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-	    PrintWriter out = response.getWriter();
 	    JsonObject json = new JsonObject();
-	    PacienteDao  editPac = new PacienteDao();
-	    
-		String DNIPaciente= null;
-		String correo = null;
-		String fehcaNac = null;
-		String telefono = null;
-		String direccion = null;
-		
+	    PacienteDao editPac = new PacienteDao();
 		try {
-DNIPaciente = jsonObject.get("DNI").getAsString();
+			String DNIPaciente = jsonObject.get("DNI").getAsString();
 			String parentesco = jsonObject.get("parentesco").getAsString();
-			correo= jsonObject.get("correo").getAsString();
-			fehcaNac = jsonObject.get("fechaNac").getAsString();
-			telefono =jsonObject.get("telefono").getAsString();
-			direccion =jsonObject.get("direccion").getAsString();
-
+			String correo = jsonObject.get("correo").getAsString();
+			String fechaNac = jsonObject.get("fechaNac").getAsString();
+			String telefono = jsonObject.get("telefono").getAsString();
+			String direccion = jsonObject.get("direccion").getAsString();
 			 Paciente paciente = new Paciente();
 			 paciente.setDni(DNIPaciente);
 			 paciente.setParentesco(parentesco);
 			 paciente.setCorreo(correo);
-			 paciente.setFecha(fehcaNac);
+			 paciente.setFecha(fechaNac);
 			 paciente.setTelefono(telefono);
 			 paciente.setDireccion(direccion);
 			 
-			 
-			 
 			 editPac.editarPaciente(paciente);
 	            
-			
-			
-			
-		}catch(Exception e) {
-			
+			 json.addProperty("estado", true);
+			 json.addProperty("mensaje", "Paciente actualizado exitosamente.");
+		} catch(Exception e) {
 			System.out.println(e);
-			
+			json.addProperty("estado", false);
+			json.addProperty("mensaje", "Error procesando edición de paciente.");
 		}
-	    
-		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json.toString());
 	}
 
 	private void EliminarPac(JsonObject jsonObject, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -206,8 +195,11 @@ DNIPaciente = jsonObject.get("DNI").getAsString();
 
 			json.addProperty("estado", pacEliminado);	
 			json.addProperty("mensaje", mensje);	
-			 out.print(json);
-	            out.flush();			
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			out.print(json);
+	        out.flush();			
 		}catch(Exception e) {
 			
 			System.out.println("Error al leer el JSON: " + e.getMessage());

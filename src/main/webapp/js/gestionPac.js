@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
 	const btnCerrarFormReg = ContenedorformularioReg.querySelector('.btn-cerrar');
 	const tbodyPacientes = document.querySelector('#mi_tabla_citas tbody');
 	const formularioReg = document.getElementById('contenedorGeneral');
-	const mensajeExito = document.getElementById('mensajeExito');
 	const btnCerrarSession = document.getElementById('btn-cerrar-sesion');  
 
 	const formularioEditarPac = document.getElementById('contenedor-formulario-edit-Pac');
@@ -48,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	const btnCerrarEditPac = formularioEditarPac.querySelector('.btn-cerrar');
 
 	const accion = 'obtenerDatos'
+	let pacientesGlobal = [];
 
 	function cargarPacientes() {
 
@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
          return response.json();
        })
        .then(listaPacientesData => {   //manejo de lista devuelta por el servlet 
+         pacientesGlobal = listaPacientesData || [];
          tbodyPacientes.innerHTML = ''; 
 
          if (Array.isArray(listaPacientesData) && listaPacientesData.length > 0) {
@@ -112,12 +113,28 @@ document.addEventListener("click", function (event) {
 			             accion: "eliminar"
 			         };
 
-			         enviarAlServlet(parametros);
+			         enviarAlServlet(parametros, function() {
+			             cargarPacientes();
+			         });
 			         return;
 			     }
 
 			    
 			     abrirModal(formularioEditarPac);
+			     
+			     const pacienteEditar = pacientesGlobal.find(p => p.DNI === DNIPaciente);
+			     if (pacienteEditar) {
+			         let fechaFormateada = pacienteEditar.fecha || '';
+			         if (fechaFormateada.length > 10) {
+			             fechaFormateada = fechaFormateada.substring(0, 10);
+			         }
+			         
+			         document.getElementById('cboParentescoPac').value = pacienteEditar.parentesco || '';
+			         document.getElementById('txtCorreoPac').value = pacienteEditar.correo || '';
+			         document.getElementById('txtfechaPac').value = fechaFormateada;
+			         document.getElementById('txtTelefonoPac').value = pacienteEditar.Telefono || '';
+			         document.getElementById('txtDireccionPac').value = pacienteEditar.Direccion || '';
+			     }
 
 			     // Guardamos el DNI en el botón guardar
 			     botonEditarPac.dataset.dni = DNIPaciente;
@@ -317,18 +334,26 @@ formActualizarPac.addEventListener('submit', function (event) {
 		    })
 .then(data => {
 		        if (data.status) {
-		            mensajeExito.style.display = 'block';
-		            setTimeout(() => { mensajeExito.style.display = 'none'; }, 3000);
-		            cerrarModal(contenedorActualizarData);
+		            submitBtn.textContent = '¡Perfil Actualizado!';
+		            submitBtn.style.backgroundColor = '#28a745';
+		            submitBtn.style.color = '#fff';
+		            submitBtn.style.transition = 'all 0.3s ease';
+		            setTimeout(() => { 
+		                submitBtn.textContent = originalText;
+		                submitBtn.style.backgroundColor = '';
+		                submitBtn.style.color = '';
+		                submitBtn.disabled = false;
+		                cerrarModal(contenedorActualizarData); 
+		            }, 2000);
 		        } else {
 		            alert("Error: " + data.mensaje);
+		            submitBtn.textContent = originalText;
+		            submitBtn.disabled = false;
 		        }
 		    })
 		    .catch(error => {
 		        console.error("Error:", error);
 		        alert("Error al actualizar: " + error.message);
-		    })
-		    .finally(() => {
 		        submitBtn.textContent = originalText;
 		        submitBtn.disabled = false;
 		    });

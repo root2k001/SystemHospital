@@ -101,7 +101,8 @@ public void agregarPaciente(Paciente paciente) {
 	       
 		
 
-	        String sql = "SELECT ID, Nombre, Sexo, Telefono,DNI, Consulta FROM Pacientes WHERE usuario_id = ?";
+
+	        String sql = "SELECT ID, Nombre, Fecha, Sexo, Telefono, Direccion, Consulta, parentesco, dni, apellidoPat, apellidoMat, correo FROM Pacientes WHERE usuario_id = ?";
 	            
 	        try (
 	        		Connection con = SqlServerConexion.conectar();
@@ -114,15 +115,21 @@ public void agregarPaciente(Paciente paciente) {
 	   	            	Map<String, Object> paciente= new HashMap<>();
 	   	            	paciente.put("id",rs.getString("ID"));
 	   	            	paciente.put("nombre",rs.getString("Nombre"));
+	   	            	paciente.put("fecha",rs.getString("Fecha"));
 	   	            	paciente.put("Sexo",rs.getString("Sexo"));
 	   	            	paciente.put("Telefono",rs.getString("Telefono"));
+	   	            	paciente.put("Direccion",rs.getString("Direccion"));
 	   	            	paciente.put("Consulta",rs.getString("Consulta"));
-	   	            	paciente.put("DNI",rs.getString("DNI"));
+	   	            	paciente.put("parentesco",rs.getString("parentesco"));
+	   	            	paciente.put("DNI",rs.getString("dni"));
+	   	            	paciente.put("apellidoPat",rs.getString("apellidoPat"));
+	   	            	paciente.put("apellidoMat",rs.getString("apellidoMat"));
+	   	            	paciente.put("correo",rs.getString("correo"));
 
-	   	            	
 	   	            	//por cada iteracion del bucle se agrega un paciente a la lista 
 						
 	   	             listaPacientes.add(paciente);
+
 
 	   	            	
 	   	            }
