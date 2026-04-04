@@ -4,53 +4,58 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="js/Register.js" type="text/javascript"></script>
 <link rel="stylesheet" href="css/Register.css">
-
-
-<title>Insert title here</title>
+<title>SystemHospital | Registro</title>
 </head>
 <body>
 
-<form id="formulario-Register"  >
+<form id="formulario-Register">
 		
-		
-		<label>DNI:</label>
-		<input class="inputs" type="text"  id ="dni-txt"  required >
-		<br>
-		<label>nombres:</label>
-		<input class="inputs" type="text"  id ="nombre-txt" required >
-		<br>
-		<label>Apellidos:</label>
-		<input class="inputs" type="text"  id="Apellido-txt" required>
-		<br>
-		<div>
-		<label  for="sexo">Genero</label>
-          <select class="inputs" id="Sexo-txt"  required >
-          		<option value="Masculino">Masculino</option>	          
-          		<option value="Femenino">Femenino</option>
-          </select>
-          
-          
+		<div class="labelcontainer">
+			<label>DNI:</label>
+			<input class="inputs" type="text" id="dni-txt" placeholder="Número de Documento" required>
 		</div>
-		<br>
+
+		<div class="labelcontainer">
+			<label>Nombres:</label>
+			<input class="inputs" type="text" id="nombre-txt" placeholder="Nombres Completos" required>
+		</div>
+
+		<div class="labelcontainer">
+			<label>Apellidos:</label>
+			<input class="inputs" type="text" id="Apellido-txt" placeholder="Apellidos Completos" required>
+		</div>
+
+		<div class="labelcontainer">
+			<label for="sexo">Género:</label>
+			<select class="inputs" id="Sexo-txt" required>
+					<option value="" disabled selected>Seleccione</option>
+					<option value="Masculino">Masculino</option>	          
+					<option value="Femenino">Femenino</option>
+			</select>
+		</div>
+
     	<div class="labelcontainer">
-			<label>Fecha de Nacimiento</label>
-			<input  class="inputs"  id="txtfecha" type="date" name="fecha_nacimiento"  required>
+			<label>Fecha de Nacimiento:</label>
+			<input class="inputs" id="txtfecha" type="date" name="fecha_nacimiento" required>
        </div>
 
-		<br>
-		<label>Correo:</label>
-				<input class="inputs" type="email"  id="correo-txt"  required>
-				<br>
+		<div class="labelcontainer">
+			<label>Correo Electrónico:</label>
+			<input class="inputs" type="email" id="correo-txt" placeholder="usuario@hospital.com" required>
+		</div>
 		
-		<label>contrasena:</label>
-				<input class="inputs" type="Password"   id="contrasena-txt" required>
-		<br>
-		<button type="submit" class="buttons" id="btn-submit" >Registrar		</button>
+		<div class="labelcontainer">
+			<label>Contraseña:</label>
+			<input class="inputs" type="password" id="contrasena-txt" placeholder="••••••••" required>
+		</div>
+
+		<button type="submit" class="buttons" id="btn-submit">Registrar Paciente</button>
 
 </form>
-					<jsp:include page="items/mensaje_respuesta.jsp"></jsp:include>
+<jsp:include page="items/mensaje_respuesta.jsp"></jsp:include>
 
 </body>
 </html>
