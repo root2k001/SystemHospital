@@ -16,18 +16,10 @@ public class UsuariosDao {
 
 	public Usuario registrarUsuario(Usuario usuario) {
 	    String sql = "INSERT INTO Usuarios(nombre, apellido, correo, contrasena, DNI, FechaNacimiento, genero) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	    List<Usuario> usuarios= tablaCompleta();
-	    //validacion de usuario 
-	    for(Usuario u:usuarios ) {
-	    	
-	 	if(usuario.getDni().equals(u.getDni())) {
-	    		System.out.println("usuario ya registrado ");
-	    		return null;
-	    		
-        }else if (usuario.getCorreo().equals(u.getCorreo()) ) {
-        	System.out.println("correo ya registrado ");
-    		return null;
-	   	}
+	    // Validacion de usuario por base de datos (Optimizado)
+	    if (existeUsuario(usuario.getDni(), usuario.getCorreo())) {
+	    	System.out.println("usuario o correo ya registrado ");
+	    	return null;
 	    }
 	  
 	    
@@ -194,5 +186,20 @@ public class UsuariosDao {
 	        }
 	    }
 	
+	 public static boolean existeOtroUsuarioConCorreo(int idUsuario, String correo) {
+	        String sql = "SELECT COUNT(*) FROM Usuarios WHERE Correo = ? AND ID != ?";
+	        try (Connection con = SqlServerConexion.conectar();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+	            ps.setString(1, correo);
+	            ps.setInt(2, idUsuario);
+	            ResultSet rs = ps.executeQuery();
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 	
 	}
