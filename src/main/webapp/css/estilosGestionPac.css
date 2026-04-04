@@ -1,17 +1,20 @@
-@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
 
 /* ===========================
    ESTILOS GENERALES
 =========================== */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f9;
+    font-family: 'Inter', sans-serif;
+    background-color: #F0F9FF; /* Azul pálido / salud */
+    background-image: radial-gradient(circle at top left, #E0F2FE 0%, transparent 50%),
+                      radial-gradient(circle at bottom right, #DBEAFE 0%, transparent 50%);
     margin: 0;
     padding: 30px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
+    color: #1F2937;
 }
 
 #Contenedor {
@@ -19,270 +22,397 @@ body {
     max-width: 1200px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 30px;
 }
-
 
 #contenedorDatos {
     background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    height: 150px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08); /* Sombreado médico sutil */
+    padding: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 #contenedorDatos h1 {
-    font-size: 1.8rem;
-    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    color: #1F2937;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #4B5563;
+    line-height: 1.6;
     margin: 0;
 }
 
-
 #ContenedorDatosUsuario {
     display: flex;
-    flex-wrap: nowrap;
-    gap: 3%;
+    flex-wrap: wrap; /* Permitir responsive */
+    gap: 30px;
     height: auto;
     min-height: 400px;
 }
 
 #datos {
     flex: 1;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    min-width: 300px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
 #cabeceraInformativa {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 20px;
+    text-align: center;
 }
 
 .perfil_img img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
-    background-color: #e0e0e0;
+    background-color: #F3F4F6;
     object-fit: cover;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    border: 4px solid #ffffff;
 }
 
 #perfil-txt {
     display: flex;
     flex-direction: column;
-	align-items: center;
-    
-    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
 }
 
-/* Agrupación de estilos base */
-.btn-accion{
-    background-color: #007bff; /* Azul primario */
-    color: #fff;
+#sp_perfil {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #1F2937;
+}
+
+#botones-edicionperfil {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Agrupación de estilos base botones */
+.btn-accion {
+    background-color: #3B82F6; 
+    color: #ffffff;
     border: none;
-    padding: 10px;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 
-/* Agrupación de estilos al pasar el ratón (hover) */
-#btn-editar-perfil:hover,
+.btn-accion:hover {
+    background-color: #2563EB;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
+}
+
+#btn-cerrar-sesion {
+    background-color: #F3F4F6;
+    color: #EF4444; /* Rojo suave corporativo */
+    box-shadow: none;
+}
+
 #btn-cerrar-sesion:hover {
-    background-color: #0056b3; /* Azul más oscuro para el hover */
+    background-color: #FEE2E2;
+    color: #DC2626;
+    transform: translateY(-2px);
 }
 
 /* ===========================
    TABLAS
 =========================== */
+#datosDinamicos {
+    width: 100%;
+}
+
 #miTablaDatos {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
 }
 
 #miTablaDatos td {
     text-align: left;
-    padding: 10px 15px;
-    border-bottom: 1px solid #ddd;
+    padding: 12px 5px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #4B5563;
+    font-size: 0.95rem;
+}
+#miTablaDatos td:first-child {
+    font-weight: 600;
+    color: #1F2937;
+}
+
+#contenedor_tablas_citas {
+    flex: 2;
+    min-width: 600px;
 }
 
 #mi_tabla_citas {
     width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    border-radius: 10px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.08);
 }
 
 #mi_tabla_citas thead {
-    background-color: #007bff;
-    color: #484646;
-
+    background-color: #E0F2FE;
+    color: #1E3A8A; /* Azul oscuro fuerte */
 }
 
-#mi_tabla_citas th,
+#mi_tabla_citas th {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    padding: 16px;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
 #mi_tabla_citas td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
+    padding: 15px 16px;
+    text-align: left;
+    border-bottom: 1px solid #F3F4F6;
+    color: #4B5563;
+}
+
+#mi_tabla_citas tbody tr {
+    transition: background-color 0.2s ease;
 }
 
 #mi_tabla_citas tbody tr:hover {
-    background-color: #f9f9f9;
+    background-color: #F9FAFB;
+}
+
+#mi_tabla_citas tbody tr:last-child td {
+    border-bottom: none;
 }
 
 /* ===========================
-   BOTONES
+   BOTONES PRINCIPALES
 =========================== */
-.miBoton, #btnProcesarGestion, .btnCerrar {
-    background-color: #007bff;
-    color: #fff;
+.miBoton, #btnProcesarGestion, .btnCerrar, #actualizarDatosUsuario, #actualizarDatosPaciente {
+    background-color: #3B82F6;
+    color: #ffffff;
     border: none;
-    padding: 12px 18px;
+    padding: 14px 24px;
     border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    align-self: center; /* util para flebox */
 }
 
-.miBoton:hover,
-#btnProcesarGestion:hover,
-.btnCerrar:hover {
-    background-color: #0056b3;
+.miBoton:hover, #btnProcesarGestion:hover, .btnCerrar:hover, #actualizarDatosUsuario:hover, #actualizarDatosPaciente:hover {
+    background-color: #2563EB;
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.3);
 }
 
 .btn-cerrar {
-    width: 40px;
-    height: 40px;
-    background-color: #e74c3c;
-    color: white;
+    width: 36px;
+    height: 36px;
+    background-color: transparent;
+    color: #9CA3AF;
+    border: 1px solid #E5E7EB;
     border-radius: 50%;
-    font-size: 1.4rem;
-    line-height: 40px;
-    text-align: center;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 20px;
+    top: 20px;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .btn-cerrar:hover {
-    background-color: #c0392b;
+    background-color: #FEE2E2;
+    color: #DC2626;
+    border-color: #FCA5A5;
     transform: rotate(90deg);
 }
 
 /* ===========================
-   FORMULARIOS - MODALES
+   FORMULARIOS - MODALES Y BACKDROP
  =========================== */
+
+/* Pseudo-Backdrop (Glassmorphism) activo cuando un formulario se abre */
+/* Usaremos una clase agregada vía CSS o modificaremos la lógica. Si el display:block, usamos fixed pseudo-element, pero mejor definimos un overlay en HTML. Si no hay overlay, el contenedor se centra y tiene un border gigante transparente usando boxShadow.*/
+body.modal-open::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(17, 24, 39, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+}
 
 #contenedorGeneral,
 #contenedor-formulario-edit-Pac,
 #contenedorActualizarData {
+    display: none; /* Escondidos por defecto, el JS original los muestra */
     position: fixed;
     background-color: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    max-width: 650px;
     width: 90%;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
     z-index: 1000;
-}
-
-#contenedorGeneral {
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -30%);
-}
-
-#contenedor-formulario-edit-Pac {
-    display: none;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
-#contenedorActualizarData {
-    display: none;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+/* Clase para mostrar el modal con animación fluida */
+.modal-show {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translate(-50%, -50%) scale(1) !important;
 }
 
-#titulo {
-	    display: flex;
-	justify-content: center;
+#titulo, #actperfil {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    color: #1F2937;
+    margin-top: 0;
+    margin-bottom: 30px;
     text-align: center;
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 25px;
+    letter-spacing: -0.5px;
+    font-weight: 700;
 }
 
-#formulario {
-    display: flex;
-    gap: 10%;
-    flex-wrap: wrap;
+#formulario, #formActualizarPerfil, #formActualizarPac {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
 .labelcontainer {
-    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Ocupar todo el ancho para botones en grid */
+#contenedor-boton, #btnProcesarGestion, #actualizarDatosUsuario, #actualizarDatosPaciente {
+    grid-column: 1 / -1;
+    margin-top: 15px;
+    width: 100%;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
     font-weight: 600;
-    color: #444;
+    color: #4B5563;
 }
 
 input[type="text"],
 input[type="date"],
 select {
     width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 1em;
-    transition: border-color 0.3s ease;
+    padding: 12px 16px;
+    border: 1px solid #D1D5DB;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: 'Inter', sans-serif;
+    color: #1F2937;
+    background-color: #F9FAFB;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 input[type="text"]:focus,
 input[type="date"]:focus,
 select:focus {
-    border-color: #007bff;
+    border-color: #3B82F6;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     outline: none;
+}
+
+input:disabled {
+    background-color: #E5E7EB;
+    cursor: not-allowed;
+    color: #6B7280;
 }
 
 /* ===========================
    NOTIFICACIÓN DE RESPUESTA
 =========================== */
-#etiqueta-respuesta {
+#etiqueta-respuesta, #mensajeExito {
     position: fixed;
-    bottom: 20px;
+    bottom: 30px;
     right: -400px;
-    z-index: 1000;
-    width: 300px;
-    padding: 15px;
-    background-color: #4CAF50;
+    z-index: 1100;
+    width: auto;
+    min-width: 300px;
+    padding: 16px 24px;
+    background-color: #10B981; /* Verde exito profesional */
     color: white;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    font-size: 0.95em;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
     font-weight: 500;
-    text-align: center;
-    transition: right 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mover-etiqueta {
-    right: 20px;
+    right: 30px !important;
+}
+
+/* Responsividad extra */
+@media (max-width: 768px) {
+    #formulario, #formActualizarPerfil, #formActualizarPac {
+        grid-template-columns: 1fr;
+    }
+    
+    #contenedor_tablas_citas {
+        min-width: 100%;
+        overflow-x: auto;
+    }
+    
+    #mi_tabla_citas {
+        min-width: 600px; /* Force scroll */
+    }
 }
