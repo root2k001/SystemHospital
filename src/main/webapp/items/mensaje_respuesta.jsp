@@ -1,35 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-
-		<div id="etiqueta-respuesta"
-		style="
-		width: 300px;
-		color: black;
-		display: flex;
-		justify-content: center;
-    	align-items: center;
-    	height: 100px;
-		border: 2px solid #ccc;
-   		position: absolute;
-    	border-radius: 20px;
-    	right: 5%;
-	    top: 80%;
-		opacity: 0;
-		transition: opacity 0.3s ease-in-out;
-		">
-			    <p>
-			    
-			    </p>
-			</div>
-		
-	
-</body>
-</html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div id="etiqueta-respuesta" class="hospira-toast">
+    <div class="toast-icon" id="toast-icon-container">
+        <!-- Icon will be injected by JS -->
+    </div>
+    <div class="toast-content">
+        <div class="toast-title" id="toast-title">Notificación</div>
+        <div class="toast-message" id="toast-message"></div>
+    </div>
+</div>
