@@ -12,6 +12,34 @@ document.addEventListener('DOMContentLoaded', function () {
 		}, 400);
 	}
 
+	function showToast(type, title, message) {
+        const toast = document.getElementById('etiqueta-respuesta');
+        const toastIcon = document.getElementById('toast-icon-container');
+        const toastTitle = document.getElementById('toast-title');
+        const toastMsg = document.getElementById('toast-message');
+
+        if (!toast) return;
+
+        // Reset classes
+        toast.className = 'hospira-toast ' + type + ' active';
+        toastTitle.innerText = title;
+        toastMsg.innerText = message;
+
+        // Set Icon based on type
+        if (type === 'success') {
+            toastIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+        } else if (type === 'error') {
+            toastIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+        } else if (type === 'warning') {
+            toastIcon.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
+        }
+
+        // Auto hide after 3.5 seconds
+        setTimeout(() => {
+            toast.classList.remove('active');
+        }, 3500);
+    }
+
 	function abrirModal(modal) {
 		modal.style.display = 'block';
 		modal.style.position = 'fixed';
@@ -173,18 +201,17 @@ formActualizarPac.addEventListener('submit', function (event) {
 					.then(response=> response.json())
 					.then(data=>{
 						if(data.estado){
-							alert(data.mensaje);
+							showToast('success', 'Operación Exitosa', data.mensaje);
 							if (onSuccess) onSuccess();
 						}else{
-							alert("Error : " + data.mensaje)
+							showToast('error', 'Error en la Operación', data.mensaje);
 						}
 
 					})
 					.catch(error => {
 						console.error("Error en fetch:", error);
-						alert("Ocurrió un error AL REALIZAR OPERACION.");
-
-						})
+						showToast('error', 'Error del Sistema', 'Ocurrió un error al procesar la solicitud.');
+					})
 
 			
 		}	  
@@ -242,17 +269,17 @@ formActualizarPac.addEventListener('submit', function (event) {
     const consulta = document.getElementById('txtMotivo').value.trim();
 
     if (!parentesco || !dni || !sexo || !apellidoPat || !apellidoMat || !nombre || !fecha || !correo || !telefono || !direccion || !consulta) {
-      alert("Completa todos los campos antes de continuar.");
+      showToast('warning', 'Campos Incompletos', 'Completa todos los campos obligatorios antes de continuar.');
       return;
     }
 
     if (!/^\d{8}$/.test(dni)) {
-      alert("El DNI debe tener 8 dígitos.");
+      showToast('warning', 'DNI Inválido', 'El DNI debe contener exactamente 8 dígitos numéricos.');
       return;
     }
 
     if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(correo)) {
-      alert("El correo electrónico no es válido.");
+      showToast('warning', 'Correo Inválido', 'Por favor, ingresa una dirección de correo electrónico válida.');
       return;
     }
 
@@ -282,15 +309,16 @@ formActualizarPac.addEventListener('submit', function (event) {
    
 
 		  if (data.estado) {
-		          alert(data.mensaje); 
+		          showToast('success', 'Registro Exitoso', data.mensaje);
 		          formularioReg.style.display = 'none';
 		          cargarPacientes(); 
 		        } else { // si el parametro estado entra es false
-		          alert(data.mensaje); }
+		          showToast('error', 'Error de Registro', data.mensaje); 
+                }
 		      })
 		      .catch(error => {
 		        console.error("Error en fetch:", error);
-		        alert("Ocurrió un error al registrar el paciente: " + error.message);
+		        showToast('error', 'Error del Sistema', 'Ocurrió un error inesperado al registrar el paciente.');
 		      });
 		  
 		});
@@ -306,7 +334,7 @@ formActualizarPac.addEventListener('submit', function (event) {
 		    const altura = document.getElementById('altura-txt').value.trim(); 
 			const tipoSangre = document.getElementById('sangre-txt').value.trim();
 		    if (!peso || !altura || !tipoSangre || !correo ) {
-		        alert("Completa todos los campos antes de continuar.");
+		        showToast('warning', 'Campos Incompletos', 'Completa todo tu perfil médico antes de guardar cambios.');
 		        return;
 		    }
 
@@ -335,9 +363,10 @@ formActualizarPac.addEventListener('submit', function (event) {
 .then(data => {
 		        if (data.status) {
 		            submitBtn.textContent = '¡Perfil Actualizado!';
-		            submitBtn.style.backgroundColor = '#28a745';
+		            submitBtn.style.backgroundColor = '#10b981'; // Premium success color
 		            submitBtn.style.color = '#fff';
 		            submitBtn.style.transition = 'all 0.3s ease';
+                    showToast('success', 'Perfil Actualizado', 'Tus datos médicos se han actualizado correctamente.');
 		            setTimeout(() => { 
 		                submitBtn.textContent = originalText;
 		                submitBtn.style.backgroundColor = '';
@@ -346,14 +375,14 @@ formActualizarPac.addEventListener('submit', function (event) {
 		                cerrarModal(contenedorActualizarData); 
 		            }, 2000);
 		        } else {
-		            alert("Error: " + data.mensaje);
+		            showToast('error', 'Error al Actualizar', data.mensaje);
 		            submitBtn.textContent = originalText;
 		            submitBtn.disabled = false;
 		        }
 		    })
 		    .catch(error => {
 		        console.error("Error:", error);
-		        alert("Error al actualizar: " + error.message);
+		        showToast('error', 'Error del Sistema', 'No se pudo contactar con el servidor. Intenta de nuevo.');
 		        submitBtn.textContent = originalText;
 		        submitBtn.disabled = false;
 		    });
@@ -365,20 +394,27 @@ formActualizarPac.addEventListener('submit', function (event) {
 		 
 		 
 		btnCerrarSession.addEventListener('click',function(){
-			if(confirm("¿estas seguro de cerrar sesion?")){
-				
-			const parametros= {accion : "cerrarSesion"};
-				
-				fetch("./GestionUsuarioServlet", {
-						        method: 'POST',
-						        headers: { 'Content-Type': 'application/json' },
-						        body: JSON.stringify(parametros )
-						    })
-				.then(() => {
-					window.location.href = 'Login.jsp';
-					});
-			}
-			
+            // Use custom premium confirm pattern inside a toast style or just directly trigger if accepted
+            // Since we don't have a full modal designed for confirmation, we will use a tailored UX here:
+            showToast('warning', 'Cerrando Sesión...', 'Saliendo de la plataforma segura...');
+            
+            const parametros = {accion : "cerrarSesion"};
+            
+            // Adding a stylized delay to match the fade out animations
+            setTimeout(() => {
+                fetch("./GestionUsuarioServlet", {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(parametros )
+                })
+                .then(() => {
+                    document.body.style.transition = 'opacity 0.6s ease';
+                    document.body.style.opacity = '0';
+                    setTimeout(() => {
+                        window.location.href = 'Login.jsp';
+                    }, 600);
+                });
+            }, 1200);
 		})
 	
 		
