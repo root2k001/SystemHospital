@@ -56,7 +56,7 @@ public void agregarPaciente(Paciente paciente) {
 	    
 	    try(Connection con = SqlServerConexion.conectar()) {
 	    	
-		    String query = "INSERT INTO Pacientes(Nombre, Fecha, Sexo, Telefono, Direccion, Consulta, usuario_id, parentesco , dni , apellidoPat , apellidoMat , correo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		    String query = "INSERT INTO Pacientes(Nombre, FechaNacimiento, Genero, Telefono, Direccion, Motivo_consulta, usuario_id, Parentesco , DNI , ApellidoPat , ApellidoMat , Correo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			ps = con.prepareStatement(query);
 			
@@ -102,7 +102,7 @@ public void agregarPaciente(Paciente paciente) {
 		
 
 
-	        String sql = "SELECT ID, Nombre, Fecha, Sexo, Telefono, Direccion, Consulta, parentesco, dni, apellidoPat, apellidoMat, correo FROM Pacientes WHERE usuario_id = ?";
+	        String sql = "SELECT ID, Nombre, FechaNacimiento, Genero, Telefono, Direccion, Motivo_consulta, Parentesco, DNI, ApellidoPat, ApellidoMat, Correo FROM Pacientes WHERE usuario_id = ?";
 	            
 	        try (
 	        		Connection con = SqlServerConexion.conectar();
@@ -115,16 +115,16 @@ public void agregarPaciente(Paciente paciente) {
 	   	            	Map<String, Object> paciente= new HashMap<>();
 	   	            	paciente.put("id",rs.getString("ID"));
 	   	            	paciente.put("nombre",rs.getString("Nombre"));
-	   	            	paciente.put("fecha",rs.getString("Fecha"));
-	   	            	paciente.put("Sexo",rs.getString("Sexo"));
-	   	            	paciente.put("Telefono",rs.getString("Telefono"));
-	   	            	paciente.put("Direccion",rs.getString("Direccion"));
-	   	            	paciente.put("Consulta",rs.getString("Consulta"));
-	   	            	paciente.put("parentesco",rs.getString("parentesco"));
-	   	            	paciente.put("DNI",rs.getString("dni"));
-	   	            	paciente.put("apellidoPat",rs.getString("apellidoPat"));
-	   	            	paciente.put("apellidoMat",rs.getString("apellidoMat"));
-	   	            	paciente.put("correo",rs.getString("correo"));
+	   	            	paciente.put("fechaNac",rs.getString("FechaNacimiento"));
+	   	            	paciente.put("genero",rs.getString("Genero"));
+	   	            	paciente.put("telefono",rs.getString("Telefono"));
+	   	            	paciente.put("direccion",rs.getString("Direccion"));
+	   	            	paciente.put("motivo",rs.getString("Motivo_consulta"));
+	   	            	paciente.put("parentesco",rs.getString("Parentesco"));
+	   	            	paciente.put("dni",rs.getString("DNI"));
+	   	            	paciente.put("apellidoPat",rs.getString("ApellidoPat"));
+	   	            	paciente.put("apellidoMat",rs.getString("ApellidoMat"));
+	   	            	paciente.put("correo",rs.getString("Correo"));
 
 	   	            	//por cada iteracion del bucle se agrega un paciente a la lista 
 						

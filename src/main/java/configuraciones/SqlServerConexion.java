@@ -23,14 +23,14 @@ public class SqlServerConexion {
 	    Connection con = null;
 
 	    String urlConexion ="jdbc:sqlserver://localhost:1433;"
-	            + "databaseName=proyecto;"
+	            + "databaseName=baseGestionPac1;"
 	            + "encrypt=true;"
 	            + "trustServerCertificate=true;";
 
 	    try {
 	        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-	        con = DriverManager.getConnection(urlConexion, "sa", "123456");
+	        con = DriverManager.getConnection(urlConexion, "sa", "Innova2019.");
 			
 			
 			
