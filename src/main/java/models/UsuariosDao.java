@@ -16,18 +16,10 @@ public class UsuariosDao {
 
 	public Usuario registrarUsuario(Usuario usuario) {
 	    String sql = "INSERT INTO Usuarios(nombre, apellido, correo, contrasena, DNI, FechaNacimiento, genero) VALUES (?, ?, ?, ?, ?, ?, ?)";
-	    List<Usuario> usuarios= tablaCompleta();
-	    //validacion de usuario 
-	    for(Usuario u:usuarios ) {
-	    	
-	 	if(usuario.getDni().equals(u.getDni())) {
-	    		System.out.println("usuario ya registrado ");
-	    		return null;
-	    		
-        }else if (usuario.getCorreo().equals(u.getCorreo()) ) {
-        	System.out.println("correo ya registrado ");
-    		return null;
-	   	}
+	    // Validacion de usuario por base de datos (Optimizado)
+	    if (existeUsuario(usuario.getDni(), usuario.getCorreo())) {
+	    	System.out.println("usuario o correo ya registrado ");
+	    	return null;
 	    }
 	  
 	    
@@ -86,7 +78,7 @@ public class UsuariosDao {
 	
 	
 	public Usuario autenticar(String correo, String contrasena) {
-		String QUERY = "SELECT ID, nombre, apellido, correo, DNI, FechaNacimiento, genero FROM Usuarios WHERE correo=? AND contrasena=?";
+		String QUERY = "SELECT ID, nombre, apellido, correo, DNI, FechaNacimiento, genero, Altura, peso ,Tipo_de_Sangre FROM Usuarios WHERE correo=? AND contrasena=?";
 	    
 	    try (Connection con = SqlServerConexion.conectar();
 	         PreparedStatement ps = con.prepareStatement(QUERY)) {
@@ -106,6 +98,9 @@ public class UsuariosDao {
 	            u.setDni(rs.getString("DNI"));
 	            u.setFechNac(rs.getString("FechaNacimiento"));	            
 	            u.setSexo(rs.getString("genero"));
+	            u.setAltura(String.valueOf( rs.getDouble("Altura")));
+	            u.setPeso(String.valueOf( rs.getDouble("peso")));
+	            u.setTipoDeSangre(rs.getString("Tipo_de_Sangre"));
 	            return u;
 	        }
 
@@ -116,6 +111,8 @@ public class UsuariosDao {
 
 	    return null;
 	}
+	
+	// METODO QUE DEVUELVE LA TABLA COMPLETA A LA VISTA 
 	
 	public List<Usuario> tablaCompleta() {
 		String sql= "SELECT*FROM Usuarios";
@@ -171,7 +168,7 @@ public class UsuariosDao {
 	
 	
 	 public static boolean actualizarPerfil(int idUsuario, String altura, String peso, String tipoSangre, String Correo) {
-	        String SQL_UPDATE = "UPDATE Usuarios SET Altura = ?, Peso = ?, TipoSangre = ?, correo=? WHERE ID = ?";
+	        String SQL_UPDATE = "UPDATE Usuarios SET Altura = ?, peso = ?, Tipo_de_sangre = ?, correo=? WHERE ID = ?";
 
 	        try (Connection con = SqlServerConexion.conectar();
 	             PreparedStatement ps = con.prepareStatement(SQL_UPDATE)) {
@@ -194,5 +191,22 @@ public class UsuariosDao {
 	        }
 	    }
 	
+	 
+	 //METODO PARA VALIDAR CORREOS IGUALES DEL USUARIO DIFIERE A EXISTE USUARIO QUE ES PARA REGISTROS 
+	 public static boolean existeOtroUsuarioConCorreo(int idUsuario, String correo) {
+	        String sql = "SELECT COUNT(*) FROM Usuarios WHERE Correo = ? AND ID != ?";
+	        try (Connection con = SqlServerConexion.conectar();
+	             PreparedStatement ps = con.prepareStatement(sql)) {
+	            ps.setString(1, correo);
+	            ps.setInt(2, idUsuario);
+	            ResultSet rs = ps.executeQuery();
+	            if (rs.next()) {
+	                return rs.getInt(1) > 0;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	        return false;
+	    }
 	
 	}

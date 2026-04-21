@@ -107,31 +107,33 @@ public class GestionPacientesServlet extends HttpServlet {
         	  jsonObject = JsonParser.parseReader(request.getReader()).getAsJsonObject();
               String accion = jsonObject.get("accion").getAsString();
         	switch(accion) {
-        	
-        	
         	case "registrar":
+                System.out.println(">>> ACCION: registrar recibida");
                 regPaciente(jsonObject,request, response);
-                	break ;
-                	
-        	case "eliminar":
-
-                EliminarPac(jsonObject, request, response);     
-
                 break;
-                
+        	case "eliminar":
+                EliminarPac(jsonObject, request, response);     
+                break;
         	case "editar" :
-        		
                 EditarPac(jsonObject, request, response);     
-
         		break;
-        	
+        	default:
+        	    JsonObject err = new JsonObject();
+			    err.addProperty("estado", false);
+			    err.addProperty("mensaje", "Acción no reconocida");
+			    response.setContentType("application/json");
+			    response.setCharacterEncoding("UTF-8");
+			    response.getWriter().write(err.toString());
+			    break;
         	}
-        	
-        	
-        }catch(Exception e) {
-        	
+        } catch(Exception e) {
             e.printStackTrace();
-
+            JsonObject err = new JsonObject();
+		    err.addProperty("estado", false);
+		    err.addProperty("mensaje", "Error interno al procesar los datos de pacientes.");
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
+		    response.getWriter().write(err.toString());
         }
 		
 		
@@ -143,71 +145,82 @@ public class GestionPacientesServlet extends HttpServlet {
 	
 
 	private void EditarPac(JsonObject jsonObject, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-	    PrintWriter out = response.getWriter();
 	    JsonObject json = new JsonObject();
-	    PacienteDao  editPac = new PacienteDao();
+	    PacienteDao editPac = new PacienteDao();
+	    HttpSession session = request.getSession(false);
+	    Usuario sesionUsuario = (Usuario) session.getAttribute("usuarioLogeado");
+	    int idUsuario = sesionUsuario.getId();
 	    
-		String DNIPaciente= null;
-		String correo = null;
-		String fehcaNac = null;
-		String telefono = null;
-		String direccion = null;
-		
 		try {
-DNIPaciente = jsonObject.get("DNI").getAsString();
+			String DNIPaciente = jsonObject.get("DNI").getAsString();
 			String parentesco = jsonObject.get("parentesco").getAsString();
-			correo= jsonObject.get("correo").getAsString();
-			fehcaNac = jsonObject.get("fechaNac").getAsString();
-			telefono =jsonObject.get("telefono").getAsString();
-			direccion =jsonObject.get("direccion").getAsString();
-
+			String correo = jsonObject.get("correo").getAsString();
+			String fechaNac = jsonObject.get("fechaNac").getAsString();
+			String telefono = jsonObject.get("telefono").getAsString();
+			String direccion = jsonObject.get("direccion").getAsString();
+			
+			System.out.println("=== EDITANDO PACIENTE ===");
+			System.out.println("DNI: " + DNIPaciente);
+			System.out.println("Parentesco: " + parentesco);
+			System.out.println("Correo: " + correo);
+			System.out.println("Fecha: " + fechaNac);
+			System.out.println("Telefono: " + telefono);
+			System.out.println("Direccion: " + direccion);
+			
 			 Paciente paciente = new Paciente();
 			 paciente.setDni(DNIPaciente);
 			 paciente.setParentesco(parentesco);
 			 paciente.setCorreo(correo);
-			 paciente.setFecha(fehcaNac);
+			 paciente.setFecha(fechaNac);
 			 paciente.setTelefono(telefono);
 			 paciente.setDireccion(direccion);
 			 
-			 
-			 
-			 editPac.editarPaciente(paciente);
+			 boolean actualizado = editPac.editarPaciente(paciente, idUsuario);
+			 System.out.println("Resultado UPDATE: " + actualizado);
 	            
-			
-			
-			
-		}catch(Exception e) {
-			
-			System.out.println(e);
-			
+			 if (actualizado) {
+				 json.addProperty("estado", true);
+				 json.addProperty("mensaje", "Paciente actualizado exitosamente.");
+			 } else {
+				 json.addProperty("estado", false);
+				 json.addProperty("mensaje", "No se encontró el paciente o no se actualizó.");
+			 }
+		} catch(Exception e) {
+			System.out.println("ERROR en EditarPac: " + e.getMessage());
+			e.printStackTrace();
+			json.addProperty("estado", false);
+			json.addProperty("mensaje", "Error procesando edición de paciente: " + e.getMessage());
 		}
-	    
-		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(json.toString());
 	}
 
-	private void EliminarPac(JsonObject jsonObject, HttpServletRequest request, HttpServletResponse response) throws IOException {
+private void EliminarPac(JsonObject jsonObject, HttpServletRequest request, HttpServletResponse response) throws IOException {
 				
 	    PrintWriter out = response.getWriter();
 	    PacienteDao PacienteDao = new PacienteDao();
 	    JsonObject json = new JsonObject();
+	    HttpSession session = request.getSession(false);
+	    Usuario sesionUsuario = (Usuario) session.getAttribute("usuarioLogeado");
+	    int idUsuario = sesionUsuario.getId();
 
 		String DNIPaciente= null;
-		
-		
 		
 		try {
 			DNIPaciente = jsonObject.get("DNI").getAsString();
 
-			// PENDIENTE IMPLEMENTAR
-			boolean  pacEliminado=	PacienteDao.eliminarPaciente(DNIPaciente);
+			boolean  pacEliminado=	PacienteDao.eliminarPaciente(DNIPaciente, idUsuario);
 			String mensje="paciente eliminado correctamente";
 			
 
 			json.addProperty("estado", pacEliminado);	
 			json.addProperty("mensaje", mensje);	
-			 out.print(json);
-	            out.flush();			
+			
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			out.print(json);
+	        out.flush();			
 		}catch(Exception e) {
 			
 			System.out.println("Error al leer el JSON: " + e.getMessage());
@@ -268,16 +281,25 @@ DNIPaciente = jsonObject.get("DNI").getAsString();
 				    	telefono = datosJson.get("telefono").getAsString();	
 				    	direccion = datosJson.get("direccion").getAsString();	
 				    	consulta = datosJson.get("consulta").getAsString();	
-				    	boolean existe = pacienteReg.existePaciente(dni);
+				    	boolean existe = pacienteReg.existePaciente(dni, idUsuario);
 				        if (existe) {
 				            jsonResponse.addProperty("estado", false);
 				            jsonResponse.addProperty("mensaje", "Ya existe un paciente con esos datos.");
 				        } else {
-				            // PRIMER Y ÚNICO REGISTRO
-				            Paciente paciente = new Paciente(idUsuario, parentesco, dni, sexo, apellidoPat, apellidoMat, nombre, fecha, correo, telefono, direccion, consulta, idUsuario);
-				            
-				            
-				            pacienteReg.agregarPaciente(paciente);
+// PRIMER Y ÚNICO REGISTRO
+System.out.println("=== REGISTRANDO PACIENTE ===");
+		            System.out.println("ID Usuario desde sesión: " + idUsuario);
+		            System.out.println("DNI: " + dni);
+		            System.out.println("Nombre: " + nombre);
+		            System.out.println("Parentesco: " + parentesco);
+		            System.out.println("Correo: " + correo);
+		            
+		    Paciente paciente = new Paciente(0, parentesco, dni, sexo, apellidoPat, apellidoMat, nombre, fecha, correo, telefono, direccion, consulta, idUsuario);
+		            System.out.println("Paciente usuarioId asignado: " + paciente.getusuarioId());
+		            
+		            System.out.println("Llamando a agregarPaciente...");
+		            pacienteReg.agregarPaciente(paciente);
+		            System.out.println("Paciente registrado.");
 				            jsonResponse.addProperty("estado", true);
 				            jsonResponse.addProperty("mensaje", "Paciente registrado con éxito.");
 				        }

@@ -188,8 +188,11 @@ request JsonObject
 				        Usuario usuario = new UsuariosDao().autenticar(correo, contrasena);
 			
 				        if (usuario != null) {
-				        	 HttpSession session = request.getSession();
-				        	 
+				        	 HttpSession oldSession = request.getSession(false);
+				        	 if (oldSession != null) {
+				        		 oldSession.invalidate();
+				        	 }
+				        	 HttpSession session = request.getSession(true);
 				        	 
 				        	    session.setAttribute("usuarioLogeado", usuario);
 				        	    System.out.println("Usuario guardado en sesión: " + usuario.getCorreo());

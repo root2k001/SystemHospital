@@ -1,56 +1,181 @@
- body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f8;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+/* Register Style Overhaul - Hospira Premium */
 
-    form {
-      background-color: #ffffff;
-      padding: 30px 40px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 400px;
-    }
+.page-container {
+    padding: 60px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: radial-gradient(circle at top right, #e0f2fe 0%, transparent 40%),
+                radial-gradient(circle at bottom left, #f1f5f9 0%, transparent 40%);
+}
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #333333;
-    }
+#registro-contenedor {
+    width: 100%;
+    max-width: 800px;
+    padding: 50px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+}
 
-    .inputs {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #cccccc;
-      border-radius: 5px;
-      box-sizing: border-box;
-      transition: border-color 0.3s;
-    }
+.register-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
 
-    .inputs:focus {
-      border-color: #007BFF;
-      outline: none;
-    }
+.brand-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    background-color: rgba(2, 132, 199, 0.1);
+    color: var(--primary);
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
 
-    .buttons {
-      width: 100%;
-      padding: 12px;
-      background-color: #007BFF;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
+.register-header h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
 
-    .buttons:hover {
-      background-color: #0056b3;
+.register-header p {
+    color: var(--neutral);
+    font-size: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* Sections */
+.form-section {
+    margin-bottom: 35px;
+    padding-bottom: 30px;
+    border-bottom: 1px dashed #e2e8f0;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 25px;
+}
+
+.section-title svg {
+    color: var(--primary);
+}
+
+/* Grid System */
+.grid-fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 30px;
+}
+
+.labelcontainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    grid-column: span 2;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
+
+.inputs {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    color: var(--secondary);
+    transition: var(--transition-base);
+    background-color: white;
+}
+
+.inputs:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+}
+
+select.inputs {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+/* Actions */
+.form-actions {
+    margin-top: 20px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.39);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.23);
+    animation: heartPulse 1.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.login-link {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--neutral);
+}
+
+.login-link a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .grid-fields {
+        grid-template-columns: 1fr;
     }
+    .full-width {
+        grid-column: span 1;
+    }
+    #registro-contenedor {
+        padding: 30px 20px;
+    }
+}

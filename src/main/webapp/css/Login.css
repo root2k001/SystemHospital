@@ -1,88 +1,211 @@
-  body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
+/* Login Style Overhaul - Hospira Premium */
+
+.page-container {
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    overflow: hidden;
+}
+
+.split-layout {
+    display: flex;
+    width: 100%;
+}
+
+/* Visual Side Styles */
+.visual-side {
+    flex: 1.2;
+    background: linear-gradient(135deg, var(--secondary) 0%, #1e293b 100%);
+    display: flex;
     align-items: center;
-  }
+    justify-content: center;
+    position: relative;
+    padding: 60px;
+    color: white;
+}
 
-  #registro-contenedor {
-    background-color: #fff;
-    padding: 30px 40px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 400px;
-  }
+.visual-side::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+    background-size: 32px 32px;
+}
 
-  form#formulario-Log p {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+.branding-content {
+    position: relative;
+    z-index: 10;
     text-align: center;
-    color: #333;
-  }
+}
 
-  .content-divs {
+.medical-icon {
+    background: rgba(2, 132, 199, 0.2);
+    width: 120px;
+    height: 120px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+    border: 1px solid rgba(2, 132, 199, 0.3);
+}
+
+.animate-pulse-slow {
+    animation: heartPulse 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.brand-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -2px;
     margin-bottom: 15px;
-  }
+}
 
-  label {
+.brand-title span {
+    color: var(--primary);
+}
+
+.brand-tagline {
+    font-size: 1.2rem;
+    color: var(--neutral);
+    font-weight: 400;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Form Side Styles */
+.form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: var(--bg-main);
+}
+
+#registro-contenedor {
+    width: 100%;
+    max-width: 450px;
+    padding: 50px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+}
+
+.form-header {
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.form-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--secondary);
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: var(--neutral);
+    font-size: 1rem;
+}
+
+.content-divs {
+    margin-bottom: 25px;
+}
+
+label {
     display: block;
-    margin-bottom: 5px;
-    color: #444;
-    font-weight: bold;
-  }
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 8px;
+}
 
-  .inputs {
+.input-wrapper {
+    position: relative;
+}
+
+.inputs {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    transition: border-color 0.3s;
-  }
+    padding: 14px 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    color: var(--secondary);
+    transition: var(--transition-base);
+    background-color: white;
+}
 
-  .inputs:focus {
-    border-color: #007BFF;
+.inputs:focus {
     outline: none;
-  }
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+    transform: scale(1.01);
+}
 
-  button#btnlogin {
+.btn-primary {
     width: 100%;
-    padding: 12px;
-    background-color: #007BFF;
+    padding: 16px;
+    background-color: var(--primary);
     color: white;
     border: none;
-    font-size: 16px;
-    border-radius: 5px;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
+    transition: var(--transition-base);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.39);
+}
 
-  button#btnlogin:hover {
-    background-color: #0056b3;
-  }
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.23);
+    animation: heartPulse 1.5s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
 
-  .btn-registrar {
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-registrar {
+    margin-top: 30px;
     text-align: center;
-    margin-top: 15px;
-  }
+    font-size: 0.95rem;
+    color: var(--neutral);
+}
 
-  .btn-registrar a {
-    color: #007BFF;
+.btn-registrar a {
+    color: var(--primary);
     text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s;
-  }
+    font-weight: 600;
+    transition: var(--transition-base);
+}
 
-  .btn-registrar a:hover {
-    color: #0056b3;
+.btn-registrar a:hover {
+    color: var(--primary-hover);
     text-decoration: underline;
-  }
+}
 
-  
+/* Responsive */
+@media (max-width: 1024px) {
+    .visual-side {
+        display: none;
+    }
+    .form-side {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    }
+}
 
+@media (max-width: 480px) {
+    #registro-contenedor {
+        padding: 30px 20px;
+        box-shadow: none;
+        background: transparent;
+        border: none;
+    }
+}
