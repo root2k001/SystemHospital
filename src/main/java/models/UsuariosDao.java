@@ -100,7 +100,7 @@ public class UsuariosDao {
 	            u.setSexo(rs.getString("genero"));
 	            u.setAltura(String.valueOf( rs.getDouble("Altura")));
 	            u.setPeso(String.valueOf( rs.getDouble("peso")));
-	            u.setTipoDeSangre("Tipo_de_Sangre");
+	            u.setTipoDeSangre(rs.getString("Tipo_de_Sangre"));
 	            return u;
 	        }
 
