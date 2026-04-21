@@ -209,7 +209,7 @@
                                 </tr>
                                 <tr>
                                     <td>Tipo Sangre</td>
-                                    <td><span class="blood-badge"><%= tipoUsuario.isEmpty() ? "—" : tipoUsuario %></span></td>
+                                    <td><span class="blood-badge"><%= (usuario.getTipoDeSangre() != null && !usuario.getTipoDeSangre().isEmpty()) ? usuario.getTipoDeSangre()+ " "  : "—"  %></span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -380,7 +380,7 @@
         <div class="labelcontainer">
             <label>Tipo de Sangre</label>
             <select name="tipoSangre" id="sangre-txt">
-                <option id="cbotipodeSangre">Seleccione</option>
+                <option id="cbotipodeSangre" value="">Seleccione</option>
                 <% for (String tipo : tiposSangre) { %>
                     <option value="<%= tipo %>" <%= tipo.equals(tipoUsuario) ? "selected" : "" %>><%= tipo %></option>
                 <% } %>

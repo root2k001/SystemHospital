@@ -116,6 +116,7 @@ public class GestionUsuarioServlet extends HttpServlet {
 			tipoSangre = jsonObject.get("tipoSangre").getAsString();
 
 			if (UsuariosDao.existeOtroUsuarioConCorreo(usuario.getId(), Correo)) {
+				 System.out.println("toodo ok ");
 			    jsonResponse.addProperty("status", false);
 			    jsonResponse.addProperty("mensaje", "Ya existe otro usuario utilizando ese correo.");
 			    response.setContentType("application/json");

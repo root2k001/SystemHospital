@@ -87,19 +87,21 @@ document.addEventListener('DOMContentLoaded', function () {
        .then(listaPacientesData => {   //manejo de lista devuelta por el servlet 
          pacientesGlobal = listaPacientesData || [];
          tbodyPacientes.innerHTML = ''; 
+		
 
          if (Array.isArray(listaPacientesData) && listaPacientesData.length > 0) {
            listaPacientesData.forEach(paciente => {
+			
              const fila = document.createElement('tr');
              fila.innerHTML = `
                <td>${paciente.nombre}</td>
-               <td>${paciente.Sexo}</td>
-               <td>${paciente.Telefono}</td>
-             <td>${paciente.Consulta}</td>
+               <td>${paciente.genero}</td>
+               <td>${paciente.telefono}</td>
+             <td>${paciente.motivo}</td>
 			 <td>${
 				`
-				<button class="btn-accion-pacienes btn-editar" data-dni="${paciente.DNI}" >editar</button>
-				<button class="btn-accion-pacienes btn-eliminar" data-dni="${paciente.DNI}">eliminar</button>
+				<button class="btn-accion-pacienes btn-editar" data-dni="${paciente.dni}" >editar</button>
+				<button class="btn-accion-pacienes btn-eliminar" data-dni="${paciente.dni}">eliminar</button>
 				`			 }</td>
 
 			 
@@ -131,6 +133,7 @@ document.addEventListener("click", function (event) {
 			     if (!btn.classList.contains("btn-accion-pacienes")) return;
 
 			     const DNIPaciente = btn.dataset.dni;
+console.log("DNI del botón:", DNIPaciente);
 			     const esEliminar = btn.classList.contains("btn-eliminar");
 
 			 
@@ -150,9 +153,9 @@ document.addEventListener("click", function (event) {
 			    
 			     abrirModal(formularioEditarPac);
 			     
-			     const pacienteEditar = pacientesGlobal.find(p => p.DNI === DNIPaciente);
+			     const pacienteEditar = pacientesGlobal.find(p => p.dni === DNIPaciente);
 			     if (pacienteEditar) {
-			         let fechaFormateada = pacienteEditar.fecha || '';
+			         let fechaFormateada = pacienteEditar.fechaNac || '';
 			         if (fechaFormateada.length > 10) {
 			             fechaFormateada = fechaFormateada.substring(0, 10);
 			         }
@@ -170,7 +173,7 @@ document.addEventListener("click", function (event) {
 
 
 			 
-formActualizarPac.addEventListener('submit', function (event) {
+	formActualizarPac.addEventListener('submit', function (event) {
 			    event.preventDefault();
 
 			     const parametros = {
