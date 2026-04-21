@@ -226,10 +226,19 @@
                         <h2>Gestión de Pacientes</h2>
                         <span class="patients-count-badge" id="patients-count-badge">0 registros</span>
                     </div>
+                      <button  id="btnAgendarCita" class="btn-primary-action">
+                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M12 5v14'/%3E%3C/svg%3E" alt="">
+                      Agendar Cita Médica
+                      
+                      </button>
+                    
                     <button id="miBoton" class="btn-primary-action">
                         <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14'/%3E%3Cpath d='M12 5v14'/%3E%3C/svg%3E" alt="">
                         Registrar Paciente
                     </button>
+                    
+                       
+                    
                 </div>
 
                 <!-- Section: Citas -->
@@ -237,7 +246,7 @@
                     <button class="section-toggle-btn" id="toggle-citas" onclick="toggleSection('citas-body', this)">
                         <div class="section-toggle-left">
                             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect width='18' height='18' x='3' y='4' rx='2' ry='2'/%3E%3Cline x1='16' x2='16' y1='2' y2='6'/%3E%3Cline x1='3' x2='21' y1='10' y2='10'/%3E%3C/svg%3E" alt="">
-                            <span>Citas Registradas y Programadas</span>
+                            <span>Pacientes Registrados</span>
                         </div>
                         <span class="toggle-arrow open">&#8963;</span>
                     </button>
@@ -350,6 +359,7 @@
             </div>
             <div id="contenedor-boton">
                 <button id="btnProcesarGestion" type="submit">Registrar Paciente</button>
+              
             </div>
         </form>
     </div>

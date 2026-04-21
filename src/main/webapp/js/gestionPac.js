@@ -418,9 +418,9 @@ console.log("DNI del botón:", DNIPaciente);
                     }, 600);
                 });
             }, 1200);
-		})
-	
-		
-		
-  
+})
+
+
+   
+ 
   });
