@@ -1,0 +1,78 @@
+/* =====================================================
+   HOSPIRA PREMIUM — misCitas.css
+   Designed for light background (#F0F9FF or #FFFFFF)
+   ===================================================== */
+.mis-citas-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:14px; }
+.mis-citas-header h1 { font-family:'Poppins',sans-serif; font-size:1.5rem; color:#0F172A; margin:0; }
+.mis-citas-header p { color:#475569; font-size:.875rem; margin:4px 0 0; font-family:'Inter',sans-serif; }
+
+/* Filter bar */
+.citas-filter-bar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+.filter-chip {
+    padding:7px 18px; border-radius:20px;
+    border:1px solid #E2E8F0;
+    background:#FFFFFF;
+    color:#64748B; font-family:'Inter',sans-serif; font-size:.82rem;
+    cursor:pointer; transition:all .2s;
+}
+.filter-chip:hover { border-color:#0284C7; color:#0284C7; background:rgba(2,132,199,.05); }
+.filter-chip.active { background:rgba(2,132,199,.15); border-color:#0284C7; color:#0284C7; font-weight:600; }
+
+/* Table wrapper */
+.citas-table-wrap {
+    background:#FFFFFF;
+    border:1px solid #E2E8F0;
+    border-radius:14px; overflow:hidden;
+    box-shadow:0 4px 6px -1px rgba(0,0,0,.05);
+}
+.citas-table { width:100%; border-collapse:collapse; font-family:'Inter',sans-serif; }
+.citas-table thead tr { background:#F8FAFC; border-bottom:1px solid #E2E8F0; }
+.citas-table th {
+    padding:14px 16px; text-align:left;
+    color:#475569; font-size:.75rem; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase;
+}
+.citas-table td {
+    padding:13px 16px; color:#334155; font-size:.85rem;
+    border-bottom:1px solid #F1F5F9;
+    vertical-align:middle;
+}
+.citas-table tbody tr:last-child td { border-bottom:none; }
+.citas-table tbody tr:hover td { background:#F8FAFC; }
+
+/* Status badges */
+.badge { font-size:.72rem; font-weight:700; padding:4px 11px; border-radius:20px; display:inline-block; }
+.badge-reservada  { background:rgba(2,132,199,.15);  color:#0369A1; }
+.badge-completada { background:rgba(34,197,94,.15);   color:#15803D; }
+.badge-cancelada  { background:rgba(239,68,68,.15);   color:#B91C1C; }
+.badge-inmediato  { background:rgba(234,179,8,.2);   color:#A16207; }
+.badge-diferido   { background:#F1F5F9; color:#475569; }
+
+/* Codigo tag */
+.codigo-tag {
+    font-family:'Poppins',sans-serif; font-size:.72rem; font-weight:700;
+    color:#0284C7; background:rgba(2,132,199,.15);
+    padding:3px 9px; border-radius:6px; letter-spacing:.04em;
+}
+
+/* Empty state */
+.citas-empty { text-align:center; padding:56px 20px; }
+.citas-empty svg { margin-bottom:14px; }
+.citas-empty p { font-family:'Poppins',sans-serif; font-size:1rem; color:#475569; margin:0 0 6px; }
+.citas-empty span { font-size:.85rem; font-family:'Inter',sans-serif; color:#64748B; }
+
+/* Loading */
+.citas-loading { text-align:center; padding:40px; color:#64748B; font-family:'Inter',sans-serif; font-size:.9rem; }
+
+/* Historial timeline */
+.historial-section { margin-top:36px; }
+.historial-title { font-family:'Poppins',sans-serif; font-size:1.1rem; color:#0F172A; margin-bottom:20px; }
+.timeline { display:flex; flex-direction:column; border-left:2px solid rgba(2,132,199,.3); margin-left:12px; }
+.timeline-item { display:flex; gap:16px; padding:14px 0 14px 24px; position:relative; }
+.timeline-item::before { content:''; position:absolute; left:-7px; top:22px; width:12px; height:12px; border-radius:50%; background:#0284C7; border:2px solid #FFFFFF; }
+.timeline-content { flex:1; background:#FFFFFF; border:1px solid #E2E8F0; border-radius:10px; padding:12px 16px; box-shadow:0 2px 4px rgba(0,0,0,.02); }
+.timeline-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; flex-wrap:wrap; gap:8px; }
+.timeline-codigo { font-family:'Poppins',sans-serif; font-size:.72rem; font-weight:700; color:#0284C7; }
+.timeline-fecha { font-size:.75rem; color:#64748B; font-family:'Inter',sans-serif; }
+.timeline-motivo { color:#1E293B; font-size:.875rem; font-weight:600; margin-bottom:4px; font-family:'Inter',sans-serif; }
+.timeline-meta { color:#475569; font-size:.78rem; font-family:'Inter',sans-serif; }

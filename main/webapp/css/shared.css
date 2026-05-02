@@ -1,0 +1,140 @@
+/* =====================================================
+   HOSPIRA PREMIUM — shared.css
+   Sidebar compartido + user card + perfil popup
+   NOTA: El layout (body, sidebar, main-layout) ya esta
+   definido en estilosGestionPac.css. Este archivo solo
+   agrega los estilos del user card, popup y activity feed.
+   ===================================================== */
+
+/* --- SIDEBAR USER CARD --- */
+.sidebar-user-card {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 10px; border-radius: 10px; cursor: pointer;
+    transition: background .2s; margin-bottom: 6px; user-select: none;
+}
+.sidebar-user-card:hover { background: rgba(255,255,255,.08); }
+
+.suc-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, #0284C7, #22D3EE);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; overflow: hidden;
+}
+.suc-avatar-img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.suc-initials { color: white; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: .9rem; }
+.suc-info { display: flex; flex-direction: column; flex: 1; min-width: 0; overflow: hidden; }
+.suc-name {
+    color: #F1F5F9; font-family: 'Poppins', sans-serif; font-size: .78rem;
+    font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.suc-role { color: #94A3B8; font-size: .68rem; font-family: 'Inter', sans-serif; }
+.suc-arrow { color: #94A3B8; flex-shrink: 0; transition: transform .2s; }
+.sidebar-user-card:hover .suc-arrow { transform: translateX(2px); }
+
+/* Collapsed: hide user info */
+.sidebar.collapsed .suc-info,
+.sidebar.collapsed .suc-arrow { display: none; }
+.sidebar.collapsed .sidebar-user-card { justify-content: center; }
+
+/* --- PERFIL POPUP OVERLAY --- */
+.perfil-popup-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(15,23,42,.65); backdrop-filter: blur(6px);
+    z-index: 9999; align-items: center; justify-content: center;
+}
+.perfil-popup-overlay.open { display: flex; }
+
+.perfil-popup-card {
+    background: #1e293b; border: 1px solid rgba(255,255,255,.1);
+    border-radius: 20px; padding: 36px 32px 28px;
+    width: 100%; max-width: 440px; position: relative;
+    box-shadow: 0 24px 64px rgba(0,0,0,.6);
+    animation: popupIn .25s ease;
+}
+@keyframes popupIn { from { opacity:0; transform:scale(.95) translateY(10px); } to { opacity:1; transform:scale(1) translateY(0); } }
+
+.perfil-popup-close {
+    position: absolute; top: 14px; right: 16px;
+    background: transparent; border: none; color: #94A3B8;
+    font-size: 1.2rem; cursor: pointer; transition: color .2s; line-height: 1;
+}
+.perfil-popup-close:hover { color: #F1F5F9; }
+
+.perfil-popup-title {
+    font-family: 'Poppins', sans-serif; font-size: 1.15rem;
+    color: #F1F5F9; margin: 0 0 22px; text-align: center;
+}
+
+.perfil-avatar-wrap {
+    position: relative; width: 88px; height: 88px;
+    margin: 0 auto 24px; cursor: pointer;
+}
+.perfil-avatar-circle {
+    width: 88px; height: 88px; border-radius: 50%;
+    background: linear-gradient(135deg, #0284C7, #22D3EE);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; border: 3px solid rgba(255,255,255,.15);
+}
+.popup-initials { color: white; font-family: 'Poppins', sans-serif; font-size: 1.8rem; font-weight: 700; }
+.popup-avatar-img { width: 100%; height: 100%; object-fit: cover; }
+.perfil-camera-icon {
+    position: absolute; bottom: 2px; right: 2px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: #0284C7; display: flex; align-items: center; justify-content: center;
+    border: 2px solid #1e293b;
+}
+
+.perfil-field-group { display: flex; flex-direction: column; gap: 12px; }
+.perfil-field { display: flex; flex-direction: column; gap: 5px; }
+.perfil-field label { color: #94A3B8; font-size: .78rem; font-family: 'Inter', sans-serif; font-weight: 500; }
+.perfil-field input, .perfil-field select {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 10px; padding: 10px 13px; color: #F1F5F9;
+    font-family: 'Inter', sans-serif; font-size: .875rem;
+    outline: none; transition: border-color .2s;
+}
+.perfil-field input:focus, .perfil-field select:focus { border-color: #0284C7; }
+.perfil-field select option { background: #1e293b; }
+
+.perfil-popup-actions { display: flex; gap: 10px; margin-top: 20px; }
+.btn-popup-cancel {
+    flex: 1; padding: 11px; border-radius: 10px;
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    color: #CBD5E1; font-family: 'Inter', sans-serif; font-size: .875rem;
+    cursor: pointer; transition: background .2s;
+}
+.btn-popup-cancel:hover { background: rgba(255,255,255,.1); }
+.btn-popup-save {
+    flex: 2; padding: 11px; border-radius: 10px;
+    background: linear-gradient(135deg, #0284C7, #0369a1); border: none;
+    color: white; font-family: 'Poppins', sans-serif; font-size: .875rem; font-weight: 600;
+    cursor: pointer; transition: opacity .2s;
+}
+.btn-popup-save:hover { opacity: .9; }
+
+/* --- PRIMARY ACTION BUTTON (shared across pages) --- */
+.btn-primary-action {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 18px; border-radius: 10px;
+    background: linear-gradient(135deg, #0284C7, #0369a1);
+    border: none; color: white; font-family: 'Poppins', sans-serif;
+    font-size: .82rem; font-weight: 600; cursor: pointer;
+    transition: opacity .2s, transform .15s;
+}
+.btn-primary-action:hover { opacity: .9; transform: translateY(-1px); }
+
+/* --- ACTIVITY FEED (dashboard) --- */
+.activity-item {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px; border-radius: 10px; transition: background .15s;
+}
+.activity-item:hover { background: rgba(2,132,199,.04); }
+.activity-dot { width: 10px; height: 10px; border-radius: 50%; background: #0284C7; flex-shrink: 0; margin-top: 5px; }
+.activity-info { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.activity-title { color: #1E293B; font-family: 'Inter', sans-serif; font-size: .875rem; font-weight: 600; }
+.activity-meta { color: #64748B; font-size: .78rem; }
+.activity-patient { color: #94A3B8; font-size: .75rem; }
+.activity-badge { font-size: .72rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; flex-shrink: 0; margin-top: 4px; font-family: 'Inter', sans-serif; }
+.estado-reservada { background: rgba(2,132,199,.12); color: #0284C7; }
+.estado-completada { background: rgba(16,185,129,.12); color: #10B981; }
+.estado-cancelada { background: rgba(239,68,68,.12); color: #EF4444; }
